@@ -1,0 +1,21 @@
+body {
+    background-color: rgb(255, 255, 255);
+    margin: 0 auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 400px;
+    font-family: left;
+}
+
+th, td {
+    border: 1px solid #ffffff;
+    padding: 8px;
+    text-align: left;
+}
+    th{
+        background-color: #ffffff;
+        font-weight: bold;
+
+    }
