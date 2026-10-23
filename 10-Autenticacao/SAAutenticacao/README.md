@@ -36,8 +36,53 @@ CREATE TABLE IF NOT EXISTS usuarios (
     ativo BOOLEAN NOT NULL DEFAULT TRUE,
     criado_em TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
-```
-
-# Configurar o Banco de Dados e Criar a Classe de Conexão Usando Singleton
 
 ```
+
+## Configuras o Banco de Dados e Criar a Classe de Conexao Usando Singleton
+
+criar o arquivo .ini
+
+```ini
+; config/database.ini
+[database]
+db_driver   = pgsql
+db_host     = 127.0.0.1
+db_port     = 5432
+db_name     = peca_senai
+db_user     = postgres
+db_pass     = postgres
+```
+
+## Camada de Acesso a Dados (`src/UsuarioDAO.php`)
+
+Isolamos as operações de busca e cadastro de usuários, em uma classe DAO
+
+> obs: cadastro de usuário é realizado com  a função `password_hash()`
+
+UsuaioDAO.php
+- cadastrar ( com hash de senha);
+- busca por email (busca os dados do usuário)
+- verificar se email já existe no cadastro (bool)
+
+## O serviço de autenticação (`src/AuthService.php`)
+
+classe que irá criar o ciclo de vida da sessão do usuário : cookies e a sessão 
+
+>obs: classe do tipo static ( não existe instanciamento de objetos)
+
+
+AuthService.php
+
+- iniciarSessaoSegura() -> passa as informações para o Cookie
+- autenticar() -> passa as informações para a superglobal
+- sessaoExpirada() => verifica o tempo de inatividade
+- sessionDestroy() => finaliza as sessao e limpas os cookies do navegador
+
+## Middleware Intercepador (`src/guard.php`)
+
+bloqueia visitantes não autenticados ou sessões expiradas
+
+
+
+
