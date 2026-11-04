@@ -1,0 +1,20 @@
+## Reposta Lista Teóricos: 
+
+**1. Código Espaguete:** Misturar SQL, regras e HTML no mesmo arquivo torna o código frágil e ilegível. Qualquer alteração visual pode quebrar o banco de dados, inviabilizando testes e gerando conflitos constantes quando uma equipe trabalha no mesmo projeto.
+
+**2. A Tríade MVC:** O **Model** gerencia os dados e contém as regras de negócio. A **View** apenas exibe a interface visual (HTML/CSS). O **Controller** orquestra tudo: recebe a requisição, pede os dados ao Model e os envia para a View.
+
+**3. Papel do Composer:** O `composer.json` lista as dependências desejadas, enquanto o `composer.lock` trava as versões exatas instaladas. A pasta `vendor/` não vai para o Git porque é muito pesada e pode ser recriada automaticamente rodando `composer install`.
+
+**4. Especificação PSR-4:** O Autoloader mapeia um namespace (ex: `App\`) para uma pasta física (`src/`). Ao chamar `App\Controllers\ProdutoController`, ele troca as contrabarras por barras de diretório e localiza o arquivo exato automaticamente, sem precisar de `require`.
+
+**5. Front Controller:** Centralizar tudo no `public/index.php` permite que o servidor exponha apenas essa pasta pública. Assim, todo o código-fonte, regras de negócio e senhas ficam um nível acima, totalmente inacessíveis pela internet e protegidos.
+
+**6. Roteador HTTP:** O Roteador analisa a URL e o verbo da requisição. Ele sabe que um `GET /produtos` serve para listar ou exibir informações, enquanto um `POST /produtos` serve para salvar novos dados, mesmo a URL sendo idêntica.
+
+**7. Injeção de Dados (extract):** A função `extract()` converte as chaves de um array associativo em variáveis independentes. Se o Controller envia `['nome' => 'Caio']`, a View ganha acesso direto à variável `$nome`, deixando o código do template muito mais limpo.
+
+**8. Segurança XSS:** O `htmlspecialchars()` converte caracteres especiais (como `<` e `>`) em códigos HTML inofensivos. Isso impede que scripts maliciosos digitados em formulários sejam executados no navegador de outros usuários que acessarem a página.
+
+**9. Single Responsibility no Controller:** O Controller deve apenas direcionar o tráfego, não acessar o banco. Colocar SQL direto nele impede o reaproveitamento do código, fere a responsabilidade única e aumenta os riscos de falhas de segurança e injeções de SQL.
+
